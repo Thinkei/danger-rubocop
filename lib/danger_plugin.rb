@@ -23,7 +23,7 @@ module Danger
 
       JSON.parse(rubocop_output)['files'].map do |file|
         file['offenses'].reject! do |offense|
-          cops_to_ignore.include?(offense['cop_name'])
+          cops_to_ignore.include?(offense['cop_name']) && git.modified_files.include?(file['path'])
         end
         file unless file['offenses'].empty?
       end.compact
