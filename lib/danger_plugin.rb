@@ -2,8 +2,9 @@ module Danger
   class DangerRubocop < Plugin
     def lint(files = nil)
       rubocop_offending_files = offending_files(files)
-      return unless rubocop_offending_files.any?
-      [markdown(offenses_message(rubocop_offending_files)), rubocop_offending_files]
+      return [] unless rubocop_offending_files.any?
+      markdown offenses_message(rubocop_offending_files)
+      rubocop_offending_files
     end
 
     private
